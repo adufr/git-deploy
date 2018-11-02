@@ -1,0 +1,3 @@
+module.exports = {
+  'secret': 'YOUR_SECRET_PASSWORD' // MUST be the same as the one in your webhook
+}

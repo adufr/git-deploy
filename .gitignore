@@ -1,0 +1,8 @@
+# Fichier token
+token.js
+
+# Logs
+logs/
+logs
+log.txt
+*.log
