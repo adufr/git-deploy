@@ -11,7 +11,7 @@ const exec = require('child_process').exec
 // == Variables utiles
 // =============================================
 
-const token = require('token.js')
+const token = require('./token.js')
 const repo = '/home/arthur/web/arthurdufour.com'
 
 
