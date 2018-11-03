@@ -1,0 +1,27 @@
+{
+  "name": "git-deploy",
+  "version": "1.0.0",
+  "description": "A very simple tool used to deploy my things to my VPS using github's webhooks",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Woosy/git-deploy.git"
+  },
+  "keywords": [
+    "deploy",
+    "webhook",
+    "node",
+    "vps"
+  ],
+  "author": "Arthur Dufour",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Woosy/git-deploy/issues"
+  },
+  "homepage": "https://github.com/Woosy/git-deploy#readme",
+  "dependencies": {}
+}
