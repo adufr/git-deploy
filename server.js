@@ -14,7 +14,6 @@ const config = require('./config.json')
 console.log('start')
 http.createServer(function (req, res) {
   req.on('data', function (chunk) {
-    console.log('request')
     for (i in config.processes) {
       if (req.url === config.processes[i].url) { // vérification de l'url
         const sig = 'sha1=' + crypto.createHmac('sha1', config.processes[i].secret).update(chunk.toString()).digest('hex');
