@@ -1,7 +1,7 @@
 {
   "name": "git-deploy",
-  "version": "1.0.0",
-  "description": "A very simple tool used to deploy my things to my VPS using github's webhooks",
+  "version": "1.1.00",
+  "description": "A very simple tool which I use to deploy applications a remote server using github's webhooks",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
