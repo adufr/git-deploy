@@ -1,6 +1,6 @@
 {
   "name": "git-deploy",
-  "version": "1.1.00",
+  "version": "1.1.01",
   "description": "A very simple tool which I use to deploy applications a remote server using github's webhooks",
   "main": "server.js",
   "scripts": {
