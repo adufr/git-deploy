@@ -1,53 +1,46 @@
+/* eslint-disable no-console */
 const http = require('http');
 const crypto = require('crypto');
-const exec = require('child_process').exec;
+const { exec } = require('child_process');
 const config = require('./config.json');
 
-
-/**
- * Fonctions utiles
- */
-function getTime() {
-    const d = new Date();
-    const h = addZero(d.getHours());
-    const m = addZero(d.getMinutes());
-    const s = addZero(d.getSeconds());
-    return `${h}:${m}:${s}`;
-}
-
+// gets the time in a custom format
 function addZero(i) {
-    if (i < 10) i = "0" + i;
-    return i;
+  return i < 10 ? `0${i}` : i;
+}
+function getTime() {
+  const d = new Date();
+  const h = addZero(d.getHours());
+  const m = addZero(d.getMinutes());
+  const s = addZero(d.getSeconds());
+  return `${h}:${m}:${s}`;
 }
 
+// Starting the server
+http.createServer((req, res) => {
+  let chunk;
+  let body = [];
 
-/**
- * Lancement du serveur
- */
-http.createServer(function (req, res) {
-
-    var chunk;
-    var body = [];
-
-    req.on('data', (data) => {
-        chunk = data;
-        body.push(data);
-    }).on('end', () => {
-        body = Buffer.concat(body).toString();
-        for (i in config.processes) {
-            if (req.url === config.processes[i].url) {
-                body = JSON.parse(decodeURIComponent(body).substr(8));
-                if (body.ref === config.processes[i].branch) {
-                    const sig = 'sha1=' + crypto.createHmac('sha1', config.processes[i].secret).update(chunk.toString()).digest('hex');
-                    if (req.headers['x-hub-signature'] == sig) {
-                        exec(config.processes[i].cmd);
-                        console.log(`${getTime()} Successfully deployed branch ${body.ref} from ${req.url}!`);
-                    }
-                }
-            }
+  req.on('data', (data) => {
+    chunk = data;
+    body.push(data);
+  }).on('end', () => {
+    body = Buffer.concat(body).toString();
+    config.processes.forEach((process) => {
+      if (req.url === process.url) {
+        body = JSON.parse(decodeURIComponent(body));
+        if (body.ref === process.branch) {
+          const sig = `sha1=${crypto.createHmac('sha1', process.secret).update(chunk.toString()).digest('hex')}`;
+          if (req.headers['x-hub-signature'] === sig) {
+            exec(process.cmd);
+            console.log(`${getTime()} Successfully deployed branch ${body.ref} from ${req.url}!`);
+          }
         }
+      }
     });
+  });
 
-    res.end();
+  res.end();
 }).listen(config.app.port);
+
 console.log(`================================\n${getTime()} => Server started on port: ${config.app.port}`);

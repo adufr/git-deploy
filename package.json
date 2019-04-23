@@ -1,8 +1,9 @@
 {
   "name": "git-deploy",
-  "version": "1.1.01",
-  "description": "A very simple tool which I use to deploy applications a remote server using github's webhooks",
+  "version": "1.2.0",
+  "description": "A very simple tool which I use to deploy applications to a remote server using GitHub's webhooks",
   "main": "server.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -11,17 +12,18 @@
     "type": "git",
     "url": "git+https://github.com/Woosy/git-deploy.git"
   },
-  "keywords": [
-    "deploy",
-    "webhook",
-    "node",
-    "vps"
-  ],
-  "author": "Arthur Dufour",
-  "license": "MIT",
+  "keywords": [],
+  "author": "Arthur 'Woosy' Dufour",
+  "license": "none",
   "bugs": {
     "url": "https://github.com/Woosy/git-deploy/issues"
   },
   "homepage": "https://github.com/Woosy/git-deploy#readme",
-  "dependencies": {}
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2"
+  }
 }
