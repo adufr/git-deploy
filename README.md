@@ -1,11 +1,5 @@
 <p align="center"><a href="https://arthurdufour.com" target="_blank" rel="noopener noreferrer"><img width="100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" alt="GitHub Logo"></a></p>
 
-<p align="center">
-  <a href="https://dependabot.com/"><img src="https://api.dependabot.com/badges/status?host=github&amp;repo=Woosy/git-deploy" alt="Dependabot Status"></a>
-  <a href="https://dependabot.com/"><img src="https://img.shields.io/david/Woosy/CalendarBot.svg?maxAge=3600" alt="Dependencies status"></a>
-  <br>
-  <br>
-</p>
 
 <h2 align="center">git-deploy</h2>
 
