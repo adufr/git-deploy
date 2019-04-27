@@ -32,6 +32,7 @@ http.createServer((req, res) => {
         if (body.ref === process.branch) {
           const sig = `sha1=${crypto.createHmac('sha1', process.secret).update(chunk.toString()).digest('hex')}`
           if (req.headers['x-hub-signature'] === sig) {
+            console.log(`${getTime()} Starting to deploy ${body.ref} from ${req.url}!`)
             exec(process.cmd, (err, stdout, stderr) => {
               if (err) {
                 console.error(`${getTime()} An error occured whilst deploying ${req.url} :`)
