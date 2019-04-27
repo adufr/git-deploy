@@ -32,8 +32,14 @@ http.createServer((req, res) => {
         if (body.ref === process.branch) {
           const sig = `sha1=${crypto.createHmac('sha1', process.secret).update(chunk.toString()).digest('hex')}`
           if (req.headers['x-hub-signature'] === sig) {
-            exec(process.cmd)
-            console.log(`${getTime()} Successfully deployed branch ${body.ref} from ${req.url}!`)
+            exec(process.cmd, (err, stdout, stderr) => {
+              if (err) {
+                console.error(`${getTime()} An error occured whilst deploying ${req.url} :`)
+                console.error(`${getTime()} ${err}`)
+                return
+              }
+              console.log(`${getTime()} Successfully deployed branch ${body.ref} from ${req.url}!`)
+            })
           }
         }
       }
@@ -43,4 +49,6 @@ http.createServer((req, res) => {
   res.end()
 }).listen(config.app.port)
 
-console.log(`================================\n${getTime()} => Server started on port: ${config.app.port}`)
+console.log(`===============================================`)
+console.log(`${getTime()} => Server started on port: ${config.app.port}`)
+console.log(`===============================================`)
