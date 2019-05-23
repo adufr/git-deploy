@@ -33,7 +33,7 @@ http.createServer((req, res) => {
           const sig = `sha1=${crypto.createHmac('sha1', process.secret).update(chunk.toString()).digest('hex')}`
           if (req.headers['x-hub-signature'] === sig) {
             // if there's a commit that doesn't contain "(no-deploy)"
-            if (body.commits.some(commit => { return !commit.message.contains('(no-deploy)') })) {
+            if (body.commits.some(commit => { return !commit.message.includes('(no-deploy)') })) {
               console.log(`${getTime()} Starting to deploy ${body.ref} from ${req.url}!`)
               exec(process.cmd, (err, stdout, stderr) => {
                 if (err) {
