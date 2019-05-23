@@ -32,15 +32,20 @@ http.createServer((req, res) => {
         if (body.ref === process.branch) {
           const sig = `sha1=${crypto.createHmac('sha1', process.secret).update(chunk.toString()).digest('hex')}`
           if (req.headers['x-hub-signature'] === sig) {
-            console.log(`${getTime()} Starting to deploy ${body.ref} from ${req.url}!`)
-            exec(process.cmd, (err, stdout, stderr) => {
-              if (err) {
-                console.error(`${getTime()} An error occured whilst deploying ${req.url} :`)
-                console.error(`${getTime()} ${err}`)
-                return
-              }
-              console.log(`${getTime()} Successfully deployed branch ${body.ref} from ${req.url}!`)
-            })
+            // if there's a commit that doesn't contain "(no-deploy)"
+            if (body.commits.some(commit => { return !commit.message.contains('(no-deploy)') })) {
+              console.log(`${getTime()} Starting to deploy ${body.ref} from ${req.url}!`)
+              exec(process.cmd, (err, stdout, stderr) => {
+                if (err) {
+                  console.error(`${getTime()} An error occured whilst deploying ${req.url} :`)
+                  console.error(`${getTime()} ${err}`)
+                  return
+                }
+                console.log(`${getTime()} Successfully deployed branch ${body.ref} from ${req.url}!`)
+              })
+            } else {
+              console.log(`${getTime()} Received push with (no-deploy)`)
+            }
           }
         }
       }
